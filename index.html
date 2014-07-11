@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+		<title>Storytelling Side Accordion - A story map presented by Esri</title>
+
+		<meta name="author" content="">
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+
+		<!--Facebook Open Graph-->
+		<meta property="og:title" content="" />
+		<meta property="og:type" content="article" />
+		<meta property="og:url" content="" />
+		<meta property="og:image" content="" />
+		<meta property="og:site_name" content="Esri" />
+		<meta property="og:description" content=""/>
+		<meta property="fb:app_id" content="" />
+		<!--End Facebook-->
+
+		<!--Twitter Card Data-->
+		<meta name="twitter:card" content="summary">
+		<meta name="twitter:site" content="">
+		<meta name="twitter:url" content="">
+		<meta name="twitter:title" content="">
+		<meta name="twitter:description" content="">
+		<meta name="twitter:image" content="">
+		<!--Twitter Card Data-->
+
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+		<link type="image/ico" rel="shortcut icon" href="//resources.esri.com/favicon.ico">
+		<link type="image/ico" rel="icon"  href="//resources.esri.com/favicon.ico">
+
+		<link rel="stylesheet" type="text/css" href="lib/normalize.css">
+		
+		<link rel="stylesheet" href="//js.arcgis.com/3.9/js/dojo/dijit/themes/tundra/tundra.css">
+		<link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.9/js/esri/css/esri.css" />
+
+		<link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
+		<!--[if IE 7]>
+		<link rel="stylesheet" href="lib/font-awesome/font-awesome-ie7.min.css">
+		<![endif]-->
+
+		<link rel="stylesheet" type="text/css" href="app/utils/Helper.css">
+		<!-- <link rel="stylesheet" type="text/css" href="app/ui/TimeSlider.css"> -->
+		<link rel="stylesheet" type="text/css" href="app/series/core/Core.css">
+
+		<script type="text/javascript">
+		
+			var dojoConfig = {
+				parseOnLoad: true,
+				isDebug: false,
+				packages: [
+				{
+					name: 'storymaps',
+					location: location.pathname.replace(/\/[^/]+$/, '/') + 'app'
+				}
+				]
+			};
+		
+		</script>
+
+	
+
+		<!--  Here a user can edit the size and visibility of the numbers that are displayed.
+		By default, this is turned off.  User must remove the comment to activate. -->
+		<!--
+		<style type="text/css">
+			.accordion-header-number {
+				visibility: collapse;
+				width: 0;
+				height: 0;
+				font-size: 0px;
+				}
+			.accordion-header-arrow {
+				top: 0px;
+			}
+		</style>
+		-->
+		
+	</head>
+	<body class="tundra">
+
+		<div id="application-window">
+
+			<div id="banner" class="region-top" style="display:none;">
+
+				<div id="header-text" class="region-center">
+					<h1 id="title"></h1>
+					<h2 id="subtitle"></h2>
+					<p id="hide-intro" class="intro-toggle">H I D E</p>
+				</div><!--/header-text-->
+
+				<i id="accordion-toggle" class="icon-list-ol"></i>
+				<div id="mobile-header"></div>
+
+				<div id="mobile-nav">
+					<span class="left-nav intro-toggle">INTRO</span>
+					<span class="map-toggle">MAP</span>
+					<span class="right-nav legend-toggle">LEGEND</span>
+				</div><!--/mobile-nav-->
+
+			
+
+			</div><!--/banner-->
+
+			<div id="content" class="region-center">
+
+				<div id="side-pane" class="region-left">
+				<div id="acc"></div>
+				 <div id="popCon" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:false" 
+        region="left" style="width: 100%;height:450px;border-top:1px solid #fff">
+				 <div id="popupArea" style="display:none;" data-dojo-type="dijit/layout/ContentPane" 
+            data-dojo-props="region:'center'"></div>
+			 <div id="popheader" data-dojo-type="dijit/layout/ContentPane" 
+            data-dojo-props="region:'top'">
+            <div id="featureCount" style="margin-bottom:10px;margin-top:10px;"></div>
+            <div id="pager" style="display:none;"> 
+                <a href='javascript:void(0);' id ="previous" class='nav' style="text-decoration: none;">
+                    &lt; Prev
+                </a>
+                &nbsp; 
+                <a href='javascript:void(0);' id="next" class='nav'  style="text-decoration: none;">
+                    Next &gt;
+                </a>
+            </div>
+            <div id="featurePos" style="margin-bottom:7px;margin-top:11px;"></div>
+        </div>
+		</div>
+				</div><!--/side-panel-->
+
+				<div id="map-content" class="region-center">
+
+					<div id="time-pane" class="region-top"></div>
+
+					<div id="map-pane" class="region-center">
+
+						<img class="loader loader80" src="resources/images/app/loader.gif" alt="Loading">
+						 <div id="searchDiv"></div>
+						<div id="legend-wrapper" style="display:none;">
+							<div id="close-mobile-legend" class="mobile-close legend-toggle"><i class="icon-remove"></i></div>
+							<div id="legend-toggle" class="legend-toggle">LEGEND &#9660;</div>
+							<div id="legend-pane">
+							</div><!--/legend-pane-->
+						</div>
+
+						<div id="mobile-popup">
+							<div id="close-mobile-popup" class="mobile-close mobile-popup-toggle"><i class="icon-remove"></i></div>
+						</div><!--/mobile-popup-->
+
+					</div><!--/map-pane-->
+
+				</div><!--/map-content-->
+
+			</div><!--/content-->
+
+			<!-- <div id="mobile-navigation" class="region-bottom">
+				<div id="mobile-navigation-arrow"></div>
+				<div id="mobile-navigation-content"></div>
+			</div> -->
+
+		</div><!--application-window-->
+
+		<script type="text/javascript" src="//js.arcgis.com/3.9/"></script>
+		<script type="text/javascript" src="lib/jquery-1.9.1.min.js"></script>
+		<!-- <script type="text/javascript" src="app/utils/funcs.js"></script> -->
+		<script type="text/javascript">
+
+			//GET Application Config
+			require(["storymaps/series/Config"]);
+			require(["storymaps/series/core/Core"], function(core){
+				core.init();
+			});
+
+		</script>
+
+
+	</body>
+</html>
